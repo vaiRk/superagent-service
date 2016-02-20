@@ -1,0 +1,28 @@
+{
+  "name": "superagent-service",
+  "version": "1.0.0",
+  "description": "Superagent-bluebird-promise utility service.",
+  "main": "service.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaiRk/superagent-service.git"
+  },
+  "keywords": [
+    "superagent",
+    "bluebird",
+    "promise",
+    "service",
+    "util"
+  ],
+  "author": "Viky Guerra <mvgp00@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vaiRk/superagent-service/issues"
+  },
+  "homepage": "https://github.com/vaiRk/superagent-service#readme",
+  "dependencies": {
+    "bluebird": "^3.3.1",
+    "superagent": "^1.7.2",
+    "superagent-bluebird-promise": "^3.0.0"
+  }
+}
