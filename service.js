@@ -2,8 +2,13 @@
 
 import request from 'superagent-bluebird-promise';
 
-export default function initService(urls) {
+export default function initService(urls, api_host) {
 	const URLS = urls;
+	const API_HOST = api_host;
+
+	if (!API_HOST) {
+		throw new Error(`Service needs an api_host string as second argument.`);
+	}
 
 	/**
 	 * Normalise URL.
