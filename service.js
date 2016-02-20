@@ -2,22 +2,22 @@
 
 import request from 'superagent-bluebird-promise';
 
-export default initService(urls) {
-	this._urls = urls;
+export default function initService(urls) {
+	const URLS = urls;
 
 	/**
 	 * Normalise URL.
 	 * @param  {string} url
 	 * @return {string}
 	 */
-	_getUrl(url, urlParams) {
+	function _getUrl(url, urlParams) {
 		if (process.env.NODE_ENV === 'development') {
-			if (!this._urls[url]) {
+			if (!URLS[url]) {
 				throw new Error(`The URL provided "${url}" is not listed on the service.`);
 			}
 		}
 
-		url = this._urls[url];
+		url = URLS[url];
 
 		if (urlParams) {
 			url = _replaceUrlParams(url, urlParams);
@@ -32,7 +32,7 @@ export default initService(urls) {
 	 * @param  {object} urlParams
 	 * @return {string}
 	 */
-	_replaceUrlParams(url, urlParams) {
+	function _replaceUrlParams(url, urlParams) {
 		return url.replace(/\/:(.*)\/?/g, function(rawUrl, urlParam) {
 			const value = urlParams[urlParam];
 
@@ -53,7 +53,7 @@ export default initService(urls) {
 	 * @param  {?object} headers
 	 * @return {object}
 	 */
-	_getHeaders(headers) {
+	function _getHeaders(headers) {
 		return {
 			'Authorization': 'Token ' + localStorage.getItem('token'),
 			'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default initService(urls) {
 	 * @param  {object} response
 	 * @return {mixed}
 	 */
-	_callbackProcessor({ text: response }) {
+	function _callbackProcessor({ text: response }) {
 		return JSON.parse(response);
 	}
 
@@ -76,7 +76,7 @@ export default initService(urls) {
 	 * @param  {object} params
 	 * @return {Promise}
 	 */
-	_doRequest(method, params) {
+	function _doRequest(method, params) {
 		let req = null;
 		const url = _getUrl(params.url, params.urlParams);
 		const requestData = params.params || {};
@@ -110,7 +110,7 @@ export default initService(urls) {
 	 * @param  {object} params
 	 * @return {Promise}
 	 */
-	doGet(params) {
+	function doGet(params) {
 		return _doRequest('GET', params);
 	}
 
@@ -118,7 +118,7 @@ export default initService(urls) {
 	 * @param  {object} params
 	 * @return {Promise}
 	 */
-	doPost(params) {
+	function doPost(params) {
 		return _doRequest('POST', params);
 	}
 
@@ -126,7 +126,7 @@ export default initService(urls) {
 	 * @param  {object} params
 	 * @return {Promise}
 	 */
-	doDelete(params) {
+	function doDelete(params) {
 		return _doRequest('DELETE', params);
 	}
 
